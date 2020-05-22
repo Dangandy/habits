@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import tw from "twin.macro";
-import styled from "@emotion/styled";
+
 // styles
 const Wrapper = tw.div`flex flex-col`;
 

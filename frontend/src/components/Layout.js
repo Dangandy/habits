@@ -1,32 +1,20 @@
 import React from "react";
-import {
-  useHistory,
-  Switch,
-  Route,
-  Link as RouterLink,
-} from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import tw from "twin.macro";
 
 // local imports
 import Navbar from "../components/NavBar";
 
 // styles
-const Content = styled.div`
-  display: block;
-  flex: 1;
-  width: 100%;
-`;
+const Content = tw.div`block flex w-full py-4 px-4`;
+
+const Container = tw.div``;
 
 function Layout({ children }) {
-  const {
-    location: { pathname },
-  } = useHistory();
-
   return (
-    <>
+    <Container>
       <Navbar />
       <Content>{children}</Content>
-    </>
+    </Container>
   );
 }
 export default Layout;

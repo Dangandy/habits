@@ -1,5 +1,18 @@
 @tailwind base;
 
+@font-face {
+  font-family: Telegrama Raw;
+  font-weight: 400;
+  src: url("./assets/fonts/telegraw.ttf") format("woff");
+}
+
+html {
+  @apply font-body;
+}
+
+body {
+  @apply bg-gray-100 overflow-y-scroll;
+}
 @tailwind components;
 
 @tailwind utilities;

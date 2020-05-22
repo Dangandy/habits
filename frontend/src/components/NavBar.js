@@ -1,57 +1,54 @@
 // global imports
 import React, { useState } from "react";
-import {
-  useHistory,
-  Switch,
-  Route,
-  Link as RouterLink,
-} from "react-router-dom";
+import { useHistory, Link as RouterLink } from "react-router-dom";
 import tw from "twin.macro";
 import styled from "@emotion/styled";
 
 // local imports
 import { ReactComponent as TechLogo } from "../assets/technology.svg";
 import { ReactComponent as MenuLogo } from "../assets/menu.svg";
-import { ReactComponent as CloseLogo } from "../assets/close.svg";
 
 // styles forked off tailwindcss navbar tutorial
-const Header = tw.header`sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3`;
+// made to look like facebook header (May 22, 2020)
+const Header = tw.header`sticky top-0 left-0 sm:flex sm:justify-between sm:items-center bg-white border-b-2`;
 
-const NavLinks = tw.div`flex items-center justify-between px-4 py-3 sm:p-0`;
+const NavLinks = tw.div`py-1 px-4 flex items-center justify-between border-gray-300 h-10`;
 
-const Link = styled(RouterLink)`
-  svg {
-    ${tw`w-auto h-8 hocus:opacity-50`}
-  }
+const Logo = styled(TechLogo)`
+  ${tw`w-auto h-8 border-0`}
 `;
 
-const NavToggle = styled.div`
-  ${tw`sm:hidden`}
-  button {
-    ${tw`block border-0 cursor-pointer`}
+const NavToggle = tw.div`sm:hidden`;
 
-    svg {
-      ${tw`w-6 h-6 fill-current hocus:text-gray-500`}
-    }
-  }
+const Button = styled.button`
+  ${tw`block border-0 focus:outline-none`}
+  ${({ openNav }) => openNav && tw`border-b-4 border-blue-500`}
 `;
 
 const Nav = styled.nav`
   ${tw`px-2 pt-2 pb-4 sm:flex sm:p-0`}
-  ${(props) => (props.openNav ? tw`block` : tw`hidden`)}
+  ${({ openNav }) => (openNav ? tw`block bg-gray-100` : tw`hidden`)}
 `;
 
-const PrimaryLink = styled(RouterLink)`
-  ${tw`block px-2 py-1 font-semibold text-gray-900 no-underline hover:underline hocus:text-gray-500`}
+const Link = styled(RouterLink)`
+  ${tw`block px-2 py-1 text-gray-900 rounded hocus:bg-gray-300`}
+  ${({ selected }) => selected && tw`text-teal-500`}
 `;
 
-const OtherLinks = styled(RouterLink)`
-  ${tw`mt-1 block px-2 py-1 text-gray-900 font-semibold hocus:text-gray-500 hover:underline sm:items-center sm:mt-0 sm:ml-2 no-underline`}
+const Border = styled.div`
+  ${tw`h-10 py-1 pt-1`}
+  ${({ selected }) => selected && tw`border-b-4 border-teal-500`}
+`;
+
+const Menu = styled(MenuLogo)`
+  ${tw`w-10 h-10 fill-current hocus:bg-gray-300 px-1 py-1 rounded`}
+  ${({ openNav }) => openNav && tw`text-teal-500 `}
 `;
 
 // component
 function Navbar() {
   const [openNav, setOpenNav] = useState(false);
+  const navigationHeaders = ["Workout", "Goals", "Login"];
   const {
     location: { pathname },
   } = useHistory();
@@ -60,22 +57,22 @@ function Navbar() {
     <Header>
       <NavLinks>
         <Link selected={pathname === "/"} to="/">
-          <TechLogo />
+          <Logo />
         </Link>
         <NavToggle>
-          <button onClick={() => setOpenNav(!openNav)}>
-            {openNav ? <CloseLogo /> : <MenuLogo />}
-          </button>
+          <Button openNav={openNav} onClick={() => setOpenNav(!openNav)}>
+            <Menu openNav={openNav} />
+          </Button>
         </NavToggle>
       </NavLinks>
       <Nav openNav={openNav}>
-        <PrimaryLink selected={pathname === "/Workout"} to="/Workout">
-          Workout
-        </PrimaryLink>
-        <OtherLinks>Daily Goals</OtherLinks>
-        <OtherLinks selected={pathname === "/Login"} to="/Login">
-          Login
-        </OtherLinks>
+        {navigationHeaders.map((header) => (
+          <Border selected={pathname === `/${header}`}>
+            <Link selected={pathname === `/${header}`} to={`/${header}`}>
+              {header}
+            </Link>
+          </Border>
+        ))}
       </Nav>
     </Header>
   );
