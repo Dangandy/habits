@@ -1,7 +1,6 @@
 // global
 import React, { useEffect, useState, useRef } from "react";
 import tw from "twin.macro";
-import styled from "@emotion/styled";
 
 // styles
 // code from here https://codesandbox.io/s/9o3lw5792w?file=/src/Dropdown.js

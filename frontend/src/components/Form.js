@@ -5,10 +5,10 @@ import styled from "@emotion/styled";
 
 // local imports
 import Toggle from "./Toggle";
-import Dropdown from "./Multiselect";
+import Dropdown from "./Dropdown";
 
 // styles from https://tailwindcss.com/components/forms/#app
-const Wrapper = tw.div`w-full max-w-sm text-sm`;
+const Wrapper = tw.div`w-full max-w-sm md:w-1/2 mx-2`;
 const Form = tw.form`bg-white border rounded px-8 pt-6 pb-8 mb-4`;
 const Row = tw.div`mb-4`;
 const Label = tw.label`block text-gray-700  font-bold mb-2`;
@@ -30,8 +30,6 @@ export default () => {
   const [check, setCheck] = useState(false);
 
   //show and lock
-  const [showFrequency, setShowFrequency] = useState(false);
-
   const handleSubmit = (event) => {
     event.preventDefault();
   };
